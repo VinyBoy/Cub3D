@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 14:17:58 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/04 14:24:00 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	copy_with_single_spaces(char *line, char *c_line, int *i, int *j)
 	{
 		if (line[*i] != ' ' && line[*i] != '\t')
 			c_line[(*j)++] = line[*i];
-		else if ((line[*i] == ' ' || line[*i] == '\t') && *j > 0 && c_line[*j
-			- 1] != ' ')
+		else if ((line[*i] == ' ' || line[*i] == '\t') && *j > 0
+			&& c_line[*j - 1] != ' ')
 			c_line[(*j)++] = ' ';
 		(*i)++;
 	}
