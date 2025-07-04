@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
+#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/04 13:59:15 by oztozdem         ###   ########.fr        #
+#    Updated: 2025/07/04 16:41:49 by vnieto-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,13 @@ SRCS =		srcs/cub3d.c \
 			srcs/parsing/free.c \
 			srcs/parsing/utils.c \
 			srcs/parsing/duplicate.c \
+			srcs/exec/draw.c \
+			srcs/exec/exec_1.c \
+			srcs/exec/free.c \
+			srcs/exec/hook.c \
+			srcs/exec/init_mlx.c \
+			srcs/exec/move_1.c \
+			srcs/exec/move_2.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m
