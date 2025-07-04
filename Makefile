@@ -6,14 +6,14 @@
 #    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/04 16:41:49 by vnieto-j         ###   ########.fr        #
+#    Updated: 2025/07/04 18:11:41 by vnieto-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		cub3D
 CC =		@cc
 CFLAGS =	-Wall -Wextra -Werror -g3
-LDFLAGS =	-lXext -lX11 -L./minilibx-linux -lmlx -L./libft -lft
+LDFLAGS =	-lXext -lX11 -lm -L./minilibx-linux -lmlx -L./libft -lft
 OBJS =		$(patsubst srcs%, objs%, $(SRCS:.c=.o))
 SRCS =		srcs/cub3d.c \
 			srcs/utils.c \

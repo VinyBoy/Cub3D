@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 16:46:12 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:08:13 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 
@@ -46,9 +47,27 @@ typedef struct s_cub
 	t_assets	*assets;
 }				t_cub;
 
+typedef struct s_player
+{
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+}				t_player;
+
+// typedef struct s_ray
+// {
+// 	double	camera
+// }
+
 typedef struct s_exec
 {
 	void		*mlx;
+	char		**map;
+	int			map_width;
+	int			map_height;
 	void		*win;
 	int			win_width;
 	int			win_height;
@@ -59,16 +78,6 @@ typedef struct s_exec
 	int			endian;
 	t_player	player;
 }				t_exec;
-
-typedef struct s_player
-{
-	double		x;
-	double		y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-}				t_player;
 
 /*exec_1.c*/
 void			ft_exec(int argc, char **argv);
@@ -83,6 +92,9 @@ void			create_image(t_exec *exec);
 void			draw_something(t_exec *exec, int x_start, int y_start,
 					int size);
 void			put_pixel(t_exec *exec, int x, int y, int color);
+int				render_frame(t_exec *exec);
+void			draw_direction(t_exec *exec, int x, int y, double dx,
+					double dy);
 
 /*hook.c*/
 int				key_hook(int keysym, t_exec *exec);
@@ -101,6 +113,8 @@ void			move_left(t_exec *exec);
 void			move_right(t_exec *exec);
 
 /*move_2.c*/
+void			rotate_left(t_exec *exec);
+void			rotate_right(t_exec *exec);
 
 /* FUNCTIONS */
 int				check_all_textures_present(t_assets *assets);
