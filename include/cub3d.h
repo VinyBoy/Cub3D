@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 14:11:35 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:58:34 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 typedef struct s_assets
 {
 	char		**textures;
-	char		**colors;
 	char		**map;
 	int			floor[3];
 	int			ceiling[3];
@@ -40,21 +39,58 @@ typedef struct s_cub
 	t_assets	*assets;
 }				t_cub;
 
-int				check_map(char **map);
-void			error(char *msg);
+/* PARSING */
 
-/* FUNCTIONS */
-int	check_all_textures_present(t_assets *assets);
-int	check_color_duplicates(t_assets *assets, char *line);
-int	check_texture_duplicates(t_assets *assets, char *line);
+/* check.c */
+int				check_content(char **map);
+int				all_info_complete(t_assets *assets);
+int				check_map(char **map);
+
+/* color.c */
+int				count_commas(char *str);
+int				is_valid_number(char *str);
+int				parse_color(char *color_str, int *rgb);
+int				store_color(t_assets *assets, char *line);
+
+/* duplicate.c */
+int				check_texture_duplicates(t_assets *assets, char *line);
+int				check_color_duplicates(t_assets *assets, char *line);
+int				check_all_textures_present(t_assets *assets);
+
+/* free.c */
 void			free_array(char **array);
 void			free_assets(t_assets *assets);
+
+/* parsing.c */
+void			copy_with_single_spaces(char *line, char *c_line, int *i,
+					int *j);
+char			*clean_line(char *line);
+char			**line_to_array(char **array, char *line, int *size);
 int				read_map(t_assets *assets);
-int				is_map(char *line);
-int				is_color(char *line);
-int				is_texture(char *line);
+int				parsing(t_assets *assets);
 t_assets		*parse_map(t_cub *cub, char **argv);
-int				c_strchr(char *str, char *s);
+
+/* print.c */
+void			print_array(char **array);
+void			print_floor(int tab[3]);
+void			print_ceiling(int tab[3]);
+void			print_assets(t_assets *assets);
+
+/* parsing/utils.c */
+int				is_texture(char *line);
+int				is_color(char *line);
+int				is_map(char *line);
+
+/* fill_map.c */
+int				get_max_line_len(char **map);
+char			*fill_line(char *line, int target_length);
+char			**fill_map(char **map);
+
+/* UTILS */
+
+/* ./utils.c */
 void			print_cub3d(void);
+void			error(char *msg);
+int				c_strchr(char *str, char *s);
 
 #endif

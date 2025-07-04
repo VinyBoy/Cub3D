@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:35:35 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 11:25:55 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:23:31 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	free_assets(t_assets *assets)
 	{
 		if (assets->textures)
 			free_array(assets->textures);
-		if (assets->colors)
-			free_array(assets->colors);
 		if (assets->map)
 			free_array(assets->map);
 		if (assets->fd >= 0)

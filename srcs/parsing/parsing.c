@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 14:24:00 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:59:04 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,14 @@
 vides, 1 pour les murs, et N,S,E ou W qui représentent la position de départ
 du joueur et son orientation.*/
 
-int	check_content(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '0' && map[i][j] != '0' && map[i][j] != '0'
-				&& map[i][j] != '0' && map[i][j] != '0' && map[i][j] != '0')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-// int	check_map(char **map)
-// {
-// }
-
 void	copy_with_single_spaces(char *line, char *c_line, int *i, int *j)
 {
 	while (line[*i])
 	{
 		if (line[*i] != ' ' && line[*i] != '\t')
 			c_line[(*j)++] = line[*i];
-		else if ((line[*i] == ' ' || line[*i] == '\t') && *j > 0
-			&& c_line[*j - 1] != ' ')
+		else if ((line[*i] == ' ' || line[*i] == '\t') && *j > 0 && c_line[*j
+			- 1] != ' ')
 			c_line[(*j)++] = ' ';
 		(*i)++;
 	}
@@ -101,15 +76,6 @@ char	**line_to_array(char **array, char *line, int *size)
 	return (new_array);
 }
 
-int	all_info_complete(t_assets *assets)
-{
-	if (assets->no_count == 1 && assets->so_count == 1 && assets->we_count == 1
-		&& assets->ea_count == 1 && assets->f_count == 1
-		&& assets->c_count == 1)
-		return (1);
-	return (0);
-}
-
 int	read_map(t_assets *assets)
 {
 	char	*line;
@@ -153,9 +119,9 @@ int	read_map(t_assets *assets)
 			if (!check_color_duplicates(assets, c_line))
 				return (free(c_line), free(line),
 					error("Error\nDuplicate color found\n"), 0);
-			assets->colors = line_to_array(assets->colors, c_line, &c_size);
-			if (!assets->colors)
-				return (free(line), 0);
+			if (!store_color(assets, c_line))
+				return (free(c_line), free(line),
+					error("Error\nInvalid color format\n"), 0);
 		}
 		else if (is_map(line))
 		{
@@ -179,13 +145,22 @@ int	read_map(t_assets *assets)
 	return (1);
 }
 
-void	print_array(char **array)
+int	parsing(t_assets *assets)
 {
-	int	i;
+	char	**filled_map;
 
-	i = -1;
-	while (array[++i])
-		printf("%s\n", array[i]);
+	if (!read_map(assets))
+		return (free_assets(assets), 0);
+	if (!check_all_textures_present(assets))
+		return (free_assets(assets), 0);
+	if (!check_map(assets->map))
+		return (free_assets(assets), 0);
+	filled_map = fill_map(assets->map);
+	if (!filled_map)
+		return (free_assets(assets), 0);
+	free_array(assets->map);
+	assets->map = filled_map;
+	return (1);
 }
 
 t_assets	*parse_map(t_cub *cub, char **argv)
@@ -209,13 +184,9 @@ t_assets	*parse_map(t_cub *cub, char **argv)
 		assets->fd = open(argv[1], O_RDONLY);
 		if (assets->fd <= 0)
 			return (free(assets), error("Error\nCannot open file\n"), NULL);
-		if (!read_map(assets))
-			return (close(assets->fd), free_assets(assets), NULL);
-		if (!check_all_textures_present(assets))
-			return (free_assets(assets), NULL);
-		print_array(assets->textures);
-		print_array(assets->colors);
-		print_array(assets->map);
+		if (!parsing(assets))
+			return (NULL);
 	}
+	print_assets(assets);
 	return (assets);
 }
