@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 16:58:34 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:10:10 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cub
 int				check_content(char **map);
 int				all_info_complete(t_assets *assets);
 int				check_map(char **map);
+int				check_textures(char **textures);
 
 /* color.c */
 int				count_commas(char *str);
@@ -86,10 +87,17 @@ int				get_max_line_len(char **map);
 char			*fill_line(char *line, int target_length);
 char			**fill_map(char **map);
 
+/* check_close.c */
+int				wall_or_void(char c);
+int				check_left_right_borders(char **map, int map_height);
+int				check_borders(char **map);
+int				check_enclosed(char **map, int x, int y);
+int				check_map_enclosed(char **map);
+
 /* UTILS */
 
 /* ./utils.c */
-void			print_cub3d(void);
+void			error(char *msg);
 void			error(char *msg);
 int				c_strchr(char *str, char *s);
 

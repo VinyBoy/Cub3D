@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:46:02 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 16:38:28 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:01:28 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,25 @@ int	check_map(char **map)
 	}
 	if (count_p != 1)
 		return (error("Error\nWrong amount of player\n"), 0);
+	return (1);
+}
+
+int	check_textures(char **textures)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	if (!textures)
+		return (error("Error\nNo textures found\n"), 0);
+	while (textures[i])
+	{
+		len = ft_strlen(textures[i]);
+		if (len < 4)
+			return (error("Error\nTexture path too short\n"), 0);
+		if (ft_strncmp(&textures[i][len - 4], ".xpm", 4))
+			return (error("Error\nTexture must be .xpm file\n"), 0);
+		i++;
+	}
 	return (1);
 }

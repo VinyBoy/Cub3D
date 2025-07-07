@@ -6,7 +6,7 @@
 #    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/04 16:58:45 by oztozdem         ###   ########.fr        #
+#    Updated: 2025/07/07 12:10:10 by oztozdem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =		srcs/cub3d.c \
 			srcs/parsing/color.c \
 			srcs/parsing/print.c \
 			srcs/parsing/fill_map.c \
+			srcs/parsing/check_close.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m
@@ -36,15 +37,29 @@ BOLD =		\033[1m
 all:		objs ${NAME}
 
 ${NAME}:	${OBJS}
-			@echo "$(BLUE)$(BOLD)\n\tCompiling libft.a... 🛠️\n$(RESET)"
+			@printf "\n"
+			@printf "\033[31;1m ██████╗ \033[33;1m██╗   ██╗\033[32;1m██████╗ "
+			@printf "\033[36;1m██████╗ \033[34;1m██████╗ \n"
+			@printf "\033[31;1m██╔════╝ \033[33;1m██║   ██║\033[32;1m██╔══██╗"
+			@printf "\033[36;1m╚════██╗\033[34;1m██╔══██╗\n"
+			@printf "\033[31;1m██║      \033[33;1m██║   ██║\033[32;1m██████╔╝"
+			@printf "\033[36;1m █████╔╝\033[34;1m██║  ██║\n"
+			@printf "\033[31;1m██║      \033[33;1m██║   ██║\033[32;1m██╔══██╗"
+			@printf "\033[36;1m ╚═══██╗\033[34;1m██║  ██║\n"
+			@printf "\033[31;1m╚██████╗ \033[33;1m╚██████╔╝\033[32;1m██████╔╝"
+			@printf "\033[36;1m██████╔╝\033[34;1m██████╔╝\n"
+			@printf "\033[31;1m ╚═════╝ \033[33;1m ╚═════╝ \033[32;1m╚═════╝ "
+			@printf "\033[36;1m╚═════╝ \033[34;1m╚═════╝ \n"
+			@printf "\033[0m\n"
+			@echo "$(BLUE)$(BOLD)Compiling libft.a... 🛠️$(RESET)"
 			@make -sC libft/
-			@echo "$(GREEN)$(BOLD)\n\tlibft.a compiled 🚀\n$(RESET)"
-			@echo "$(BLUE)$(BOLD)\n\tCompiling MiniLibX... 🛠️\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)libft.a compiled 🚀$(RESET)"
+			@echo "$(BLUE)$(BOLD)Compiling MiniLibX... 🛠️$(RESET)"
 			@make -sC minilibx-linux/ > /dev/null 2>&1
-			@echo "$(GREEN)$(BOLD)\n\tMiniLibX compiled 🚀\n$(RESET)"
-			@echo "$(BLUE)$(BOLD)\n\tCompiling ${NAME}... 🛠️\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)MiniLibX compiled 🚀$(RESET)"
+			@echo "$(BLUE)$(BOLD)Compiling ${NAME}... 🛠️$(RESET)"
 			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LDFLAGS}
-			@echo "$(GREEN)$(BOLD)\n\t${NAME} compiled 🚀\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)${NAME} compiled 🚀$(RESET)"
 
 objs:
 			@mkdir -p $(dir $(OBJS))
@@ -53,27 +68,27 @@ objs/%.o:	srcs/%.c
 			$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 clean:
-			@echo "$(RED)$(BOLD)\n\tCleaning up MiniLibX object files 🧹\n$(RESET)"
+			@echo "$(RED)$(BOLD)Cleaning up MiniLibX object files 🧹$(RESET)"
 			@make clean -sC minilibx-linux/ > /dev/null 2>&1
-			@echo "$(GREEN)$(BOLD)\n\tMiniLibX object files removed! ✅\n$(RESET)"
-			@echo "$(RED)$(BOLD)\n\tCleaning up libft object files 🧹\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)MiniLibX object files removed! ✅$(RESET)"
+			@echo "$(RED)$(BOLD)Cleaning up libft object files 🧹$(RESET)"
 			@make clean -sC libft/
-			@echo "$(GREEN)$(BOLD)\n\tlibft object files removed! ✅\n$(RESET)"
-			@echo "$(RED)$(BOLD)\n\tCleaning up ${NAME} object files 🧹\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)libft object files removed! ✅$(RESET)"
+			@echo "$(RED)$(BOLD)Cleaning up ${NAME} object files 🧹$(RESET)"
 			@rm -rf ${OBJS} objs
-			@echo "$(GREEN)$(BOLD)\n\t${NAME} object files removed! ✅\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)${NAME} object files removed! ✅$(RESET)"
 
 fclean:		clean
-			@echo "$(RED)$(BOLD)\n\tDeleting libft.a 🗑️\n$(RESET)"
+			@echo "$(RED)$(BOLD)Deleting libft.a 🗑️$(RESET)"
 			@make fclean -sC libft/
-			@echo "$(GREEN)$(BOLD)\n\tlibft.a deleted! ❌\n$(RESET)"
-			@echo "$(RED)$(BOLD)\n\tDeleting ${NAME} 🗑️\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)libft.a deleted! ❌$(RESET)"
+			@echo "$(RED)$(BOLD)Deleting ${NAME} 🗑️$(RESET)"
 			@rm -rf ${NAME}
-			@echo "$(GREEN)$(BOLD)\n\t${NAME} deleted! ❌\n$(RESET)"
+			@echo "$(GREEN)$(BOLD)${NAME} deleted! ❌$(RESET)"
 
 re:			
-			@echo "$(YELLOW)$(BOLD)\n\tRecompiling ${NAME} 🔄\n$(RESET)"
+			@echo "$(YELLOW)$(BOLD)Recompiling ${NAME} 🔄$(RESET)"
 			@$(MAKE) -s fclean all
-			@echo "$(YELLOW)$(BOLD)\n\tDone recompiling! ✅\n$(RESET)"
+			@echo "$(YELLOW)$(BOLD)Done recompiling! ✅$(RESET)"
 
 .PHONY:		all clean fclean re

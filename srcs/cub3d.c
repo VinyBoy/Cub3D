@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:12:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 11:25:13 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:10:10 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (error("Error\nUsage: ./cub3D <map.cub>\n"), 1);
-	print_cub3d();
 	cub = malloc(sizeof(t_cub));
 	if (!cub)
 		return (error("Error\nMalloc error on t_cub struct\n"), 1);

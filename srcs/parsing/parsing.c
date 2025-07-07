@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 16:59:04 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/07 12:01:19 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,10 @@ int	parsing(t_assets *assets)
 	if (!check_all_textures_present(assets))
 		return (free_assets(assets), 0);
 	if (!check_map(assets->map))
+		return (free_assets(assets), 0);
+	if (!check_map_enclosed(assets->map))
+		return (free_assets(assets), 0);
+	if (!check_textures(assets->textures))
 		return (free_assets(assets), 0);
 	filled_map = fill_map(assets->map);
 	if (!filled_map)
