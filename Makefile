@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
+#    By: viny <viny@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/04 18:11:41 by vnieto-j         ###   ########.fr        #
+#    Updated: 2025/07/10 16:55:22 by viny             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		cub3D
 CC =		@cc
 CFLAGS =	-Wall -Wextra -Werror -g3
-LDFLAGS =	-lXext -lX11 -lm -L./minilibx-linux -lmlx -L./libft -lft
+LDFLAGS =	-L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11 -lXpm -lbsd -lm
 OBJS =		$(patsubst srcs%, objs%, $(SRCS:.c=.o))
 SRCS =		srcs/cub3d.c \
 			srcs/utils.c \
@@ -28,6 +28,8 @@ SRCS =		srcs/cub3d.c \
 			srcs/exec/init_mlx.c \
 			srcs/exec/move_1.c \
 			srcs/exec/move_2.c \
+			srcs/exec/raycasting.c \
+			srcs/exec/raycasting_init.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m
