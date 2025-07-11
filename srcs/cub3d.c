@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:12:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 14:38:25 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:09:44 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	ft_memset(cub, 0, sizeof(t_cub));
 	// cub->assets = parse_map(cub, argv);
 	// free_assets(cub->assets);
-	ft_exec(argc, argv);
+	ft_exec(argc, argv, cub);
 	free(cub);
 	return (0);
 }

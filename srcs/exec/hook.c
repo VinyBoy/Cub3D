@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:17:59 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/04 18:16:53 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:45:15 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	mouse_hook(int mouse_code, t_exec *exec)
 
 int	key_hook(int keysym, t_exec *exec)
 {
-	printf("hello\n");
 	if (keysym == XK_Escape)
 		return (free_exec_exit(exec), 0);
 	if (keysym == XK_w || keysym == XK_W)
@@ -33,9 +32,9 @@ int	key_hook(int keysym, t_exec *exec)
 	else if (keysym == XK_d || keysym == XK_D)
 		move_right(exec);
 	else if (keysym == XK_Left)
-		rotate_left(exec);
+		rotate(exec, ROT_SPEED);
 	else if (keysym == XK_Right)
-		rotate_right(exec);
+		rotate(exec, -ROT_SPEED);
 	return (1);
 }
 

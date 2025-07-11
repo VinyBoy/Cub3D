@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: viny <viny@student.42.fr>                  +#+  +:+       +#+         #
+#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/10 16:55:22 by viny             ###   ########.fr        #
+#    Updated: 2025/07/11 13:10:24 by vnieto-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		cub3D
 CC =		@cc
 CFLAGS =	-Wall -Wextra -Werror -g3
-LDFLAGS =	-L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11 -lXpm -lbsd -lm
+LDFLAGS =	-L./minilibx-linux -lmlx -L./libft -lft -lXext -lX11 -lbsd -lm
 OBJS =		$(patsubst srcs%, objs%, $(SRCS:.c=.o))
 SRCS =		srcs/cub3d.c \
 			srcs/utils.c \
