@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 16:07:46 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:23:46 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,8 +219,8 @@ t_assets	*parse_map(char **argv)
 	assets = init_assets();
 	if (!assets)
 		return (error("Error\nAssets init failed\n"), NULL);
-	if (is_directory(argv[1]))
-		return (0);
+	// if (is_directory(argv[1]))
+	// 	return (0);
 	if (ft_strrchr(argv[1], '/'))
 	{
 		if (ft_strlen(ft_strrchr(argv[1], '/') + 1) < 5)

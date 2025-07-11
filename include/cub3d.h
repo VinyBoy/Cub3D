@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 16:18:08 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:43:58 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_ray
 typedef struct s_exec
 {
 	void		*mlx;
+	int			floor_ex;
+	int			ceiling_ex;
 	char		**map;
 	int			map_width;
 	int			map_height;
@@ -110,6 +112,9 @@ typedef struct s_exec
 }				t_exec;
 
 /*exec_1.c*/
+void			init_dir_plane_ew(t_exec *exec, int x, int y);
+void			init_dir_plane(t_exec *exec, int x, int y);
+void			init_pos_player(t_exec *exec);
 void			ft_exec(int argc, char **argv, t_cub *cub);
 void			init_exec(t_exec *exec, t_cub *cub);
 
@@ -118,6 +123,7 @@ int				init_mlx(t_exec *exec);
 int				handle_window_close(t_exec *exec);
 
 /*draw.c*/
+void			draw_floor_and_ceiling(t_exec *exec);
 void			create_image(t_exec *exec);
 void			draw_something(t_exec *exec, int x_start, int y_start,
 					int size);
