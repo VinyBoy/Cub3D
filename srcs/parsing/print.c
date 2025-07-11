@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 15:16:21 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 15:28:11 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:27:58 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_array(char **array)
 
 	i = -1;
 	while (array[++i])
-		printf("%s\n", array[i]);
+		printf("'%s'\n", array[i]);
 }
 
 void	print_floor(int tab[3])

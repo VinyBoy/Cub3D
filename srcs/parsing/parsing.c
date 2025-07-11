@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/07 12:01:19 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:07:46 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void	copy_with_single_spaces(char *line, char *c_line, int *i, int *j)
 {
 	while (line[*i])
 	{
-		if (line[*i] != ' ' && line[*i] != '\t')
+		if (line[*i] != ' ')
 			c_line[(*j)++] = line[*i];
-		else if ((line[*i] == ' ' || line[*i] == '\t') && *j > 0 && c_line[*j
-			- 1] != ' ')
+		else if (line[*i] == ' ' && *j > 0 && c_line[*j - 1] != ' ')
 			c_line[(*j)++] = ' ';
 		(*i)++;
 	}
@@ -43,7 +42,7 @@ char	*clean_line(char *line)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == 't'))
+	while (line[i] && line[i] == ' ')
 		i++;
 	copy_with_single_spaces(line, c_line, &i, &j);
 	if (j > 0 && c_line[j - 1] == ' ')
@@ -83,6 +82,7 @@ int	read_map(t_assets *assets)
 	int		t_size;
 	int		c_size;
 	int		m_size;
+	char	*next_line;
 
 	t_size = 0;
 	c_size = 0;
@@ -92,6 +92,24 @@ int	read_map(t_assets *assets)
 	{
 		if (line[0] == '\n' || line[0] == '\0')
 		{
+			if (assets->map_started)
+			{
+				while ((next_line = get_next_line(assets->fd)))
+				{
+					if (next_line[0] != '\n' && next_line[0] != '\0')
+					{
+						if (is_map(next_line))
+						{
+							free(next_line);
+							return (free(line),
+								error("Error\nEmpty line in map\n"), 0);
+						}
+					}
+					free(next_line);
+				}
+				free(line);
+				break ;
+			}
 			free(line);
 			line = get_next_line(assets->fd);
 			continue ;
@@ -135,6 +153,12 @@ int	read_map(t_assets *assets)
 		}
 		else
 		{
+			if (assets->map_started)
+			{
+				free(c_line);
+				free(line);
+				break ;
+			}
 			return (free(c_line), free(line),
 				error("Error\nInvalid line in file\n"), 0);
 		}
@@ -153,29 +177,50 @@ int	parsing(t_assets *assets)
 		return (free_assets(assets), 0);
 	if (!check_all_textures_present(assets))
 		return (free_assets(assets), 0);
+	if (!assets->map)
+		return (free_assets(assets), error("Error\nNo map found\n"), 0);
 	if (!check_map(assets->map))
-		return (free_assets(assets), 0);
-	if (!check_map_enclosed(assets->map))
-		return (free_assets(assets), 0);
-	if (!check_textures(assets->textures))
+		return (free_assets(assets),
+			error("Error\nUnvalid caracter detected\n"), 0);
+	if (!check_borders(assets->map))
 		return (free_assets(assets), 0);
 	filled_map = fill_map(assets->map);
 	if (!filled_map)
 		return (free_assets(assets), 0);
 	free_array(assets->map);
 	assets->map = filled_map;
+	if (!check_closed(assets->map))
+		return (free_assets(assets), 0);
+	if (!check_textures(assets->textures))
+		return (free_assets(assets), 0);
 	return (1);
 }
 
-t_assets	*parse_map(t_cub *cub, char **argv)
+int	is_directory(const char *path)
+{
+	int		fd;
+	char	buffer[1];
+	ssize_t	r;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (error("Error\nOpen failed\n"), 0);
+	r = read(fd, buffer, 1);
+	close(fd);
+	if (r == -1)
+		return (error("Error\nInvalid map file type\n"), 1);
+	return (0);
+}
+
+t_assets	*parse_map(char **argv)
 {
 	t_assets	*assets;
 
-	assets = malloc(sizeof(t_assets));
+	assets = init_assets();
 	if (!assets)
-		return (error("Error\nMalloc error for assets\n"), NULL);
-	ft_memset(assets, 0, sizeof(t_assets));
-	(void)cub;
+		return (error("Error\nAssets init failed\n"), NULL);
+	if (is_directory(argv[1]))
+		return (0);
 	if (ft_strrchr(argv[1], '/'))
 	{
 		if (ft_strlen(ft_strrchr(argv[1], '/') + 1) < 5)

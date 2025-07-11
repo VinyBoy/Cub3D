@@ -6,7 +6,7 @@
 #    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/07 12:10:10 by oztozdem         ###   ########.fr        #
+#    Updated: 2025/07/11 12:41:40 by oztozdem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ LDFLAGS =	-lXext -lX11 -L./minilibx-linux -lmlx -L./libft -lft
 OBJS =		$(patsubst srcs%, objs%, $(SRCS:.c=.o))
 SRCS =		srcs/cub3d.c \
 			srcs/utils.c \
+			srcs/free.c \
 			srcs/parsing/parsing.c \
 			srcs/parsing/free.c \
 			srcs/parsing/utils.c \
@@ -26,6 +27,7 @@ SRCS =		srcs/cub3d.c \
 			srcs/parsing/print.c \
 			srcs/parsing/fill_map.c \
 			srcs/parsing/check_close.c \
+			srcs/parsing/v_or_x.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m

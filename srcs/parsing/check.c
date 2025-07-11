@@ -6,32 +6,11 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:46:02 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/07 12:01:28 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/11 11:14:27 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-int	check_content(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '0' && map[i][j] != '0' && map[i][j] != '0'
-				&& map[i][j] != '0' && map[i][j] != '0' && map[i][j] != '0')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
 
 int	all_info_complete(t_assets *assets)
 {
@@ -58,7 +37,7 @@ int	check_map(char **map)
 			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W'
 				&& map[i][j] != ' ')
-				return (error("Error\nInvalid character\n"), 0);
+				return (0);
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W')
 				count_p++;
@@ -66,26 +45,33 @@ int	check_map(char **map)
 		}
 	}
 	if (count_p != 1)
-		return (error("Error\nWrong amount of player\n"), 0);
+		return (0);
 	return (1);
 }
 
 int	check_textures(char **textures)
 {
 	int	i;
+	int	j;
 	int	len;
 
-	i = 0;
+	i = -1;
 	if (!textures)
 		return (error("Error\nNo textures found\n"), 0);
-	while (textures[i])
+	while (textures[++i])
 	{
-		len = ft_strlen(textures[i]);
+		j = 0;
+		while (textures[i][j] && textures[i][j] != ' ')
+			j++;
+		while (textures[i][j] && textures[i][j] == ' ')
+			j++;
+		if (!textures[i][j])
+			return (error("Error\nInvalid texture format\n"), 0);
+		len = ft_strlen(&textures[i][j]);
 		if (len < 4)
 			return (error("Error\nTexture path too short\n"), 0);
-		if (ft_strncmp(&textures[i][len - 4], ".xpm", 4))
+		if (ft_strncmp(&textures[i][j + len - 4], ".xpm", 4))
 			return (error("Error\nTexture must be .xpm file\n"), 0);
-		i++;
 	}
 	return (1);
 }

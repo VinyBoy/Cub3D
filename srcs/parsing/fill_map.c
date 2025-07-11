@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:44:48 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 16:59:13 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/11 12:55:06 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_max_line_len(char **map)
 	return (max_len);
 }
 
-char	*fill_line(char *line, int target_length)
+char	*fill_line(char **map, char *line, int line_index, int target_length)
 {
 	char	*new_line;
 	int		i;
@@ -40,20 +40,21 @@ char	*fill_line(char *line, int target_length)
 	if (!new_line)
 		return (NULL);
 	original_len = ft_strlen(line);
-	i = 0;
-	while (i < original_len)
+	i = -1;
+	while (++i < original_len)
 	{
-		if (line[i] == ' ' || line[i] == '\t')
-			new_line[i] = '1';
+		if (line[i] == ' ')
+		{
+			if (v_or_x(map, line_index, i) == 'V')
+				new_line[i] = 'V';
+			else
+				new_line[i] = 'X';
+		}
 		else
 			new_line[i] = line[i];
-		i++;
 	}
 	while (i < target_length)
-	{
-		new_line[i] = '1';
-		i++;
-	}
+		new_line[i++] = 'X';
 	new_line[target_length] = '\0';
 	return (new_line);
 }
@@ -77,7 +78,7 @@ char	**fill_map(char **map)
 	i = -1;
 	while (++i < map_size)
 	{
-		new_map[i] = fill_line(map[i], max_len);
+		new_map[i] = fill_line(map, map[i], i, max_len);
 		if (!new_map[i])
 			return (free_array(new_map), NULL);
 	}
