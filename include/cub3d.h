@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 16:16:25 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:18:08 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_cub
 	t_assets	*assets;
 }				t_cub;
 
-
 typedef struct s_player
 {
 	double		x;
@@ -81,7 +80,7 @@ typedef struct s_ray
 	// Distance réelle entre joueur et mur (corrigée pour perspective)
 
 	int step_x; // +1 ou
-		// -1 : direction du pas en X (vers la droite ou la gauche)
+				// -1 : direction du pas en X (vers la droite ou la gauche)
 	int step_y; // +1 ou -1 : direction du pas en Y (vers le haut ou le bas)
 
 	int hit;  // 0 ou 1 : le rayon a-t-il touché un mur ?
@@ -170,7 +169,8 @@ int				check_color_duplicates(t_assets *assets, char *line);
 int				check_all_textures_present(t_assets *assets);
 
 /* parsing/free.c */
-
+void			free_array(char **array);
+void			free_assets(t_assets *assets);
 /* parsing/check.c */
 int				all_info_complete(t_assets *assets);
 /* parsing/parsing.c */
