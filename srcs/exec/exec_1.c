@@ -6,43 +6,93 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:37:09 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/11 16:09:58 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:36:54 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+void	init_dir_plane_ew(t_exec *exec, int x, int y)
+{
+	if (exec->map[y][x] == 'E')
+	{
+		exec->player.dir_x = 1.0;
+		exec->player.dir_y = 0.0;
+		exec->player.plane_x = 0.0;
+		exec->player.plane_y = 0.66;
+	}
+	else if (exec->map[y][x] == 'O')
+	{
+		exec->player.dir_x = -1.0;
+		exec->player.dir_y = 0.0;
+		exec->player.plane_x = 0.0;
+		exec->player.plane_y = -0.66;
+	}
+	return ;
+}
+
+void	init_dir_plane(t_exec *exec, int x, int y)
+{
+	if (exec->map[y][x] == 'N')
+	{
+		exec->player.dir_x = 0.0;
+		exec->player.dir_y = -1.0;
+		exec->player.plane_x = 0.66;
+		exec->player.plane_y = 0.0;
+	}
+	else if (exec->map[y][x] == 'S')
+	{
+		exec->player.dir_x = 0.0;
+		exec->player.dir_y = 1.0;
+		exec->player.plane_x = -0.66;
+		exec->player.plane_y = 0.0;
+	}
+	init_dir_plane_ew(exec, x, y);
+	return ;
+}
+
+void	init_pos_player(t_exec *exec)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (exec->map[y] != NULL)
+	{
+		x = 0;
+		while (exec->map[y][x] != '\0')
+		{
+			if (exec->map[y][x] == 'N' || exec->map[y][x] == 'S'
+				|| exec->map[y][x] == 'E' || exec->map[y][x] == 'O')
+			{
+				exec->player.x = x + 0.5;
+				exec->player.y = y + 0.5;
+				init_dir_plane(exec, x, y);
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+int	rgb_to_int(int r, int g, int b)
+{
+	return ((r << 16) | (g << 8) | b);
+}
+
 void	init_exec(t_exec *exec, t_cub *cub)
 {
-	(void)cub;
-	static char *tmp_map[] = {
-		"1111111111111111111111111",
-		"1000000000110000000000001",
-		"1011000001110000000000001",
-		"1001000000000000000000001",
-		"11111111101100000111000001",
-		"1000000000110000011101111",
-		"11110111111111011100000010001",
-		"11110111111111011101010010001",
-		"11000000110101011100000010001",
-		"10000000000000001100000010001",
-		"10000000000000001101010010001",
-		"11000001110101011111011110N0111",
-		"11110111011101010101111010001",
-		"1111111101111111011111111111",
-		NULL
-	};
-	exec->map = tmp_map;
+	exec->map = cub->assets->map;
 	exec->map_width = 30;
 	exec->map_height = 14;
 	exec->win_height = 800;
 	exec->win_width = 1400;
-	exec->player.x = 11.5;
-	exec->player.y = 11.5;
-	exec->player.dir_x = -1.0;
-	exec->player.dir_y = 0.0;
-	exec->player.plane_x = 0.0;  // fov horizonta;
-	exec->player.plane_y = 0.66; // fov vertical
+	exec->floor_ex = rgb_to_int(cub->assets->floor[0], cub->assets->floor[1],
+			cub->assets->floor[2]);
+	exec->ceiling_ex = rgb_to_int(cub->assets->ceiling[0],
+			cub->assets->ceiling[1], cub->assets->ceiling[2]);
+	init_pos_player(exec);
 }
 
 void	ft_exec(int argc, char **argv, t_cub *cub)

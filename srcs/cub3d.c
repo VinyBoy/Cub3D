@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:12:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 14:43:28 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 21:05:46 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	main(int argc, char **argv)
 	cub = init_cub(argv);
 	if (!cub)
 		return (free_all(cub), 1);
-	// ft_exec(argc, argv, cub);
+	ft_exec(argc, argv, cub);
 	return (free_all(cub), 0);
 }

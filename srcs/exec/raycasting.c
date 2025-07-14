@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viny <viny@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:37:24 by viny              #+#    #+#             */
-/*   Updated: 2025/07/10 16:46:56 by viny             ###   ########.fr       */
+/*   Updated: 2025/07/11 19:43:35 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,37 @@ void	clear_image(t_exec *exec)
 {
 	mlx_destroy_image(exec->mlx, exec->image);
 	exec->image = mlx_new_image(exec->mlx, exec->win_width, exec->win_height);
-	exec->img_data = mlx_get_data_addr(exec->image, &exec->bpp, &exec->size_line,
-			&exec->endian);
+	exec->img_data = mlx_get_data_addr(exec->image, &exec->bpp,
+			&exec->size_line, &exec->endian);
 }
 
+void	draw_floor_and_ceiling(t_exec *exec)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < exec->win_height / 2)
+	{
+		x = -1;
+		while (++x < exec->win_width)
+			put_pixel(exec, x, y, exec->ceiling_ex);
+	}
+	y = exec->win_height / 2;
+	while (y < exec->win_height)
+	{
+		x = -1;
+		while (++x < exec->win_width)
+			put_pixel(exec, x, y, exec->floor_ex);
+		y++;
+	}
+}
 int	render_frame(t_exec *exec)
 {
 	int	x;
 
 	clear_image(exec);
+	draw_floor_and_ceiling(exec);
 	x = 0;
 	while (x < exec->win_width)
 	{
