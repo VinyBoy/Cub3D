@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:37:24 by viny              #+#    #+#             */
-/*   Updated: 2025/07/11 19:43:35 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/14 22:36:46 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,48 @@ void	draw_column(t_exec *exec, int x, t_ray *r)
 	int	y;
 	int	color;
 
-	color = (r->side == 1) ? 0x00777777 : 0x00BBBBBB;
+	if (r->side == 1)
+		color = 0x00777777;
+	else
+		color = 0x00BBBBBB;
 	y = r->draw_start;
 	while (y < r->draw_end)
 	{
 		put_pixel(exec, x, y, color);
 		y++;
 	}
+}
+
+void	*choose_texture_img(t_exec *exec, t_ray *r)
+{
+	if (r->side == 0)
+	{
+		if (r->ray_dir_x > 0)
+			return (exec->assets->west->image);
+		else
+			return (exec->assets->east->image);
+	}
+	else
+	{
+		if (r->ray_dir_y > 0)
+			return (exec->assets->north->image);
+		else
+			return (exec->assets->south->image);
+	}
+}
+
+static void	init_texinfo(t_exec *exec, t_ray *r, t_texinfo *tex)
+{
+	tex->img = choose_texture_img(exec, r);
+	tex->img_data = mlx_get_data_addr(tex->img, &exec->bpp, &exec->size_line,
+			&exec->endian);
+	tex->width = exec->assets->img_width;
+	tex->height = exec->assets->img_height;
+}
+void	draw_column(t_exec *exec, int x, t_ray *r)
+{
+	t_texinfo tex_info;
+
+	init_texinfo(exec, r, &tex_info);
+	draw_texture_column(exec, )
 }

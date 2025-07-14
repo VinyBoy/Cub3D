@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 10:35:35 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 18:23:15 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 21:47:06 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ void	free_array(char **array)
 	}
 }
 
-void	free_img(t_img *img)
-{
-	if (img)
-	{
-		if (img->north)
-			free(img->north);
-		if (img->south)
-			free(img->south);
-		if (img->east)
-			free(img->east);
-		if (img->west)
-			free(img->west);
-		free(img);
-	}
-}
+// void	free_img(t_img *img)
+// {
+// 	if (img)
+// 	{
+// 		if (img->north)
+// 			free(img->north);
+// 		if (img->south)
+// 			free(img->south);
+// 		if (img->east)
+// 			free(img->east);
+// 		if (img->west)
+// 			free(img->west);
+// 		free(img);
+// 	}
+// }
 
 void	free_assets(t_assets *assets)
 {
@@ -54,8 +54,8 @@ void	free_assets(t_assets *assets)
 			free_array(assets->map);
 		if (assets->fd >= 0)
 			close(assets->fd);
-		if (assets->img)
-			free_img(assets->img);
+		// if (assets->img)
+		// 	free_img(assets->img);
 		free(assets);
 	}
 }

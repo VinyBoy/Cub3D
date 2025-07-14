@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 16:05:59 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 21:46:13 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_assets	*parse_map(char **argv)
 	}
 	assets->map_height = get_map_height(assets->map);
 	assets->map_width = get_map_width(assets->map[0]);
-	if (!set_img(assets))
+	if (!set_path(assets))
 		return (0);
 	print_assets(assets);
 	return (assets);
