@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
+#    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/11 16:16:56 by vnieto-j         ###   ########.fr        #
+#    Updated: 2025/07/14 15:59:44 by oztozdem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRCS =		srcs/cub3d.c \
 			srcs/utils.c \
 			srcs/free.c \
 			srcs/parsing/parsing.c \
+			srcs/parsing/read_map.c \
+			srcs/parsing/read_map_utils.c \
 			srcs/parsing/free.c \
 			srcs/parsing/utils.c \
 			srcs/parsing/duplicate.c \
@@ -28,6 +30,7 @@ SRCS =		srcs/cub3d.c \
 			srcs/parsing/fill_map.c \
 			srcs/parsing/check_close.c \
 			srcs/parsing/v_or_x.c \
+			srcs/parsing/img.c \
 			srcs/exec/draw.c \
 			srcs/exec/exec_1.c \
 			srcs/exec/free.c \

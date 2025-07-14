@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:46:02 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 11:14:27 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:38:33 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,14 @@ int	check_textures(char **textures)
 			return (error("Error\nTexture must be .xpm file\n"), 0);
 	}
 	return (1);
+}
+
+int	get_map_width(char *map)
+{
+	int	width;
+
+	width = 0;
+	while (map[width])
+		width++;
+	return (width);
 }

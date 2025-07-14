@@ -6,18 +6,13 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:17:30 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 12:56:10 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:23:01 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static int	is_player_char(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
-static int	get_map_height(char **map)
+int	get_map_height(char **map)
 {
 	int	height;
 
@@ -74,11 +69,7 @@ char	**create_visited_map(char **map)
 	{
 		visited[i] = malloc(sizeof(char) * (ft_strlen(map[i]) + 1));
 		if (!visited[i])
-		{
-			while (--i >= 0)
-				free(visited[i]);
-			return (free(visited), NULL);
-		}
+			return (free_visited(visited, i), NULL);
 		j = -1;
 		while (++j < (int)ft_strlen(map[i]))
 			visited[i][j] = 0;

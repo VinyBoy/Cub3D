@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 16:18:08 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:51:20 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,23 @@
 # define MOVE_SPEED 0.2
 # define ROT_SPEED 0.05
 
+typedef struct s_img
+{
+	void		*north_img;
+	void		*south_img;
+	void		*east_img;
+	void		*west_img;
+	char		*north;
+	char		*south;
+	char		*east;
+	char		*west;
+	int			width;
+	int			height;
+}				t_img;
+
 typedef struct s_assets
 {
+	t_img		*img;
 	char		**textures;
 	char		**map;
 	int			floor[3];
@@ -40,6 +55,11 @@ typedef struct s_assets
 	int			f_count;
 	int			c_count;
 	int			map_started;
+	int			map_ended;
+	int			t_size;
+	int			m_size;
+	int			map_height;
+	int			map_width;
 }				t_assets;
 
 typedef struct s_cub
@@ -154,9 +174,6 @@ void			perform_dda(t_exec *exec, t_ray *r);
 /*free.c*/
 void			free_exec_exit(t_exec *exec);
 
-int				check_map(char **map);
-int				check_textures(char **textures);
-
 /* parsing/color.c */
 int				count_commas(char *str);
 int				is_valid_number(char *str);
@@ -167,12 +184,20 @@ int				store_color(t_assets *assets, char *line);
 int				check_texture_duplicates(t_assets *assets, char *line);
 int				check_color_duplicates(t_assets *assets, char *line);
 int				check_all_textures_present(t_assets *assets);
+int				is_player_char(char c);
 
 /* parsing/free.c */
 void			free_array(char **array);
+void			free_img(t_img *img);
 void			free_assets(t_assets *assets);
+void			free_visited(char **visited, int i);
+
 /* parsing/check.c */
 int				all_info_complete(t_assets *assets);
+int				check_map(char **map);
+int				check_textures(char **textures);
+int				get_map_width(char *map);
+
 /* parsing/parsing.c */
 void			copy_with_single_spaces(char *line, char *c_line, int *i,
 					int *j);
@@ -193,6 +218,7 @@ int				is_texture(char *line);
 int				is_color(char *line);
 int				is_map(char *line);
 t_assets		*init_assets(void);
+int				is_directory(const char *path);
 
 /* parsing/fill_map.c */
 int				get_max_line_len(char **map);
@@ -207,6 +233,19 @@ int				check_closed(char **map);
 
 /* parsing/v_or_x.c */
 char			v_or_x(char **map, int i, int j);
+int				get_map_height(char **map);
+
+/* parsing/read_map_utils.c */
+int				check_empty_lines_in_map(t_assets *assets);
+int				handle_empty_line(t_assets *assets);
+int				handle_textures(t_assets *assets, char *c_line);
+int				handle_colors(t_assets *assets, char *c_line);
+int				handle_map(t_assets *assets, char *line);
+
+/* parsing/img.c */
+char			*get_texture_path(char **textures, char *id);
+int				set_path(t_assets *assets);
+int				set_img(t_assets *assets);
 
 /* ./utils.c */
 void			error(char *msg);

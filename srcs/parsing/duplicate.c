@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 13:54:45 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/04 14:09:10 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:34:25 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,9 @@ int	check_all_textures_present(t_assets *assets)
 	if (assets->f_count != 1 || assets->c_count != 1)
 		return (error("Error\nMissing color(s)\n"), 0);
 	return (1);
+}
+
+int	is_player_char(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }

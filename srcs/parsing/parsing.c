@@ -6,15 +6,11 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 16:07:46 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/14 16:05:59 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-/*0 pour les espaces
-vides, 1 pour les murs, et N,S,E ou W qui représentent la position de départ
-du joueur et son orientation.*/
 
 void	copy_with_single_spaces(char *line, char *c_line, int *i, int *j)
 {
@@ -75,100 +71,6 @@ char	**line_to_array(char **array, char *line, int *size)
 	return (new_array);
 }
 
-int	read_map(t_assets *assets)
-{
-	char	*line;
-	char	*c_line;
-	int		t_size;
-	int		c_size;
-	int		m_size;
-	char	*next_line;
-
-	t_size = 0;
-	c_size = 0;
-	m_size = 0;
-	line = get_next_line(assets->fd);
-	while (line)
-	{
-		if (line[0] == '\n' || line[0] == '\0')
-		{
-			if (assets->map_started)
-			{
-				while ((next_line = get_next_line(assets->fd)))
-				{
-					if (next_line[0] != '\n' && next_line[0] != '\0')
-					{
-						if (is_map(next_line))
-						{
-							free(next_line);
-							return (free(line),
-								error("Error\nEmpty line in map\n"), 0);
-						}
-					}
-					free(next_line);
-				}
-				free(line);
-				break ;
-			}
-			free(line);
-			line = get_next_line(assets->fd);
-			continue ;
-		}
-		c_line = clean_line(line);
-		if (!c_line)
-			return (free(line), 0);
-		if (is_texture(c_line))
-		{
-			if (assets->map_started)
-				return (free(c_line), free(line),
-					error("Error\nTexture found after map start\n"), 0);
-			if (!check_texture_duplicates(assets, c_line))
-				return (free(c_line), free(line),
-					error("Error\nDuplicate texture found\n"), 0);
-			assets->textures = line_to_array(assets->textures, c_line, &t_size);
-			if (!assets->textures)
-				return (free(line), 0);
-		}
-		else if (is_color(c_line))
-		{
-			if (assets->map_started)
-				return (free(c_line), free(line),
-					error("Error\nColor found after map start\n"), 0);
-			if (!check_color_duplicates(assets, c_line))
-				return (free(c_line), free(line),
-					error("Error\nDuplicate color found\n"), 0);
-			if (!store_color(assets, c_line))
-				return (free(c_line), free(line),
-					error("Error\nInvalid color format\n"), 0);
-		}
-		else if (is_map(line))
-		{
-			if (!all_info_complete(assets))
-				return (free(c_line), free(line),
-					error("Error\nMap found before all assets defined\n"), 0);
-			assets->map_started = 1;
-			assets->map = line_to_array(assets->map, line, &m_size);
-			if (!assets->map)
-				return (free(line), 0);
-		}
-		else
-		{
-			if (assets->map_started)
-			{
-				free(c_line);
-				free(line);
-				break ;
-			}
-			return (free(c_line), free(line),
-				error("Error\nInvalid line in file\n"), 0);
-		}
-		free(c_line);
-		free(line);
-		line = get_next_line(assets->fd);
-	}
-	return (1);
-}
-
 int	parsing(t_assets *assets)
 {
 	char	**filled_map;
@@ -196,22 +98,6 @@ int	parsing(t_assets *assets)
 	return (1);
 }
 
-int	is_directory(const char *path)
-{
-	int		fd;
-	char	buffer[1];
-	ssize_t	r;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (error("Error\nOpen failed\n"), 0);
-	r = read(fd, buffer, 1);
-	close(fd);
-	if (r == -1)
-		return (error("Error\nInvalid map file type\n"), 1);
-	return (0);
-}
-
 t_assets	*parse_map(char **argv)
 {
 	t_assets	*assets;
@@ -220,22 +106,24 @@ t_assets	*parse_map(char **argv)
 	if (!assets)
 		return (error("Error\nAssets init failed\n"), NULL);
 	if (is_directory(argv[1]))
-		return (0);
+		return (free_assets(assets), NULL);
 	if (ft_strrchr(argv[1], '/'))
-	{
 		if (ft_strlen(ft_strrchr(argv[1], '/') + 1) < 5)
 			return (error("Error\nMap is wrong\n"), NULL);
-	}
 	if (c_strchr(argv[1], ".cub") == 0)
-		return (error("Error\nMap must be a .cub\n"), NULL);
+		return (free_assets(assets), error("Error\nMap must be a .cub\n"), NULL);
 	else
 	{
 		assets->fd = open(argv[1], O_RDONLY);
 		if (assets->fd <= 0)
-			return (free(assets), error("Error\nCannot open file\n"), NULL);
+			return (error("Error\nCannot open file\n"), NULL);
 		if (!parsing(assets))
 			return (NULL);
 	}
+	assets->map_height = get_map_height(assets->map);
+	assets->map_width = get_map_width(assets->map[0]);
+	if (!set_img(assets))
+		return (0);
 	print_assets(assets);
 	return (assets);
 }
