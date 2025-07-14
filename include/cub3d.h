@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 19:43:58 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:48:22 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_ray
 	int draw_end;   // Y de fin de la colonne murale à dessiner
 }				t_ray;
 
+
 typedef struct s_exec
 {
 	void		*mlx;
@@ -109,6 +110,7 @@ typedef struct s_exec
 	int			size_line;
 	int			endian;
 	t_player	player;
+	t_assets	assets;
 }				t_exec;
 
 /*exec_1.c*/
