@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
+#    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr        #
+#    Updated: 2025/07/15 16:49:16 by oztozdem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS =		srcs/cub3d.c \
 			srcs/exec/raycasting_texture_2.c \
 			srcs/exec/raycasting_init.c \
 			srcs/exec/minimap.c \
+			srcs/exec/minimap_2.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 14:15:55 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 21:46:00 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:46:08 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ int	set_path(t_assets *assets)
 	assets->img_height = 128;
 	assets->img_width = 128;
 	return (1);
+}
+
+void	mlx_destroy_protected(void *mlx_ptr, void *img_ptr)
+{
+	if (img_ptr)
+		mlx_destroy_image(mlx_ptr, img_ptr);
 }

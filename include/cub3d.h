@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/15 16:02:02 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:49:02 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,15 +214,16 @@ void				perform_dda(t_exec *exec, t_ray *r);
 /*free.c*/
 void				free_exec_exit(t_exec *exec);
 
-/* texture.c */
-
 /* minimap.c */
-void				draw_minimap_pixel(t_exec *exec, int x, int y, int color);
 void				draw_minimap_border(t_exec *exec);
 void				draw_minimap_background(t_exec *exec);
 void				draw_player_on_minimap(t_exec *exec);
 void				draw_minimap_map(t_exec *exec);
 void				draw_minimap(t_exec *exec);
+
+/* minimap_2.c */
+int					get_minimap_size(t_exec *exec);
+void				draw_minimap_pixel(t_exec *exec, int x, int y, int color);
 
 /* parsing/color.c */
 int					count_commas(char *str);
@@ -295,6 +296,7 @@ int					handle_map(t_assets *assets, char *line);
 /* parsing/img.c */
 char				*get_texture_path(char **textures, char *id);
 int					set_path(t_assets *assets);
+void				mlx_destroy_protected(void *mlx_ptr, void *img_ptr);
 
 /* ./utils.c */
 void				error(char *msg);
