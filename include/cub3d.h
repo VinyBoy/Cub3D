@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 22:33:05 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:51:46 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void				perform_dda(t_exec *exec, t_ray *r);
 void				free_exec_exit(t_exec *exec);
 
 /* texture.c */
-void				set_img(t_exec *exec);
+int					set_img(t_exec *exec);
 
 /* parsing/color.c */
 int					count_commas(char *str);

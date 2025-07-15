@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:37:24 by viny              #+#    #+#             */
-/*   Updated: 2025/07/14 22:36:46 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:47:29 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,19 @@ void	*choose_texture_img(t_exec *exec, t_ray *r)
 	}
 }
 
-static void	init_texinfo(t_exec *exec, t_ray *r, t_texinfo *tex)
-{
-	tex->img = choose_texture_img(exec, r);
-	tex->img_data = mlx_get_data_addr(tex->img, &exec->bpp, &exec->size_line,
-			&exec->endian);
-	tex->width = exec->assets->img_width;
-	tex->height = exec->assets->img_height;
-}
-void	draw_column(t_exec *exec, int x, t_ray *r)
-{
-	t_texinfo tex_info;
+// static void	init_texinfo(t_exec *exec, t_ray *r, t_texinfo *tex)
+// {
+// 	tex->img = choose_texture_img(exec, r);
+// 	tex->img_data = mlx_get_data_addr(tex->img, &exec->bpp, &exec->size_line,
+// 			&exec->endian);
+// 	tex->width = exec->assets->img_width;
+// 	tex->height = exec->assets->img_height;
+// }
 
-	init_texinfo(exec, r, &tex_info);
-	draw_texture_column(exec, )
-}
+// void	draw_column(t_exec *exec, int x, t_ray *r)
+// {
+// 	t_texinfo tex_info;
+
+// 	init_texinfo(exec, r, &tex_info);
+// 	draw_texture_column(exec, )
+// }

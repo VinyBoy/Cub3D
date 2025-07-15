@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:19:15 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/14 22:33:28 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:53:35 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,31 @@ static int	check_image(t_exec *exec)
 	return (0);
 }
 
-void	set_img(t_exec *exec)
+int	init_texture(t_exec *exec)
 {
+	exec->assets->north = malloc(sizeof(t_texture_mlx));
+	if (!exec->assets->north)
+		return (0);
+	exec->assets->east = malloc(sizeof(t_texture_mlx));
+	if (!exec->assets->east)
+		return (0);
+	exec->assets->west = malloc(sizeof(t_texture_mlx));
+	if (!exec->assets->west)
+		return (0);
+	exec->assets->south = malloc(sizeof(t_texture_mlx));
+	if (!exec->assets->south)
+		return (0);
+	ft_memset(exec->assets->north, 0, sizeof(t_texture_mlx));
+	ft_memset(exec->assets->east, 0, sizeof(t_texture_mlx));
+	ft_memset(exec->assets->west, 0, sizeof(t_texture_mlx));
+	ft_memset(exec->assets->south, 0, sizeof(t_texture_mlx));
+	return (1);
+}
+
+int	set_img(t_exec *exec)
+{
+	if (!init_texture(exec))
+		return (error("Error\nMalloc error texture\n"), 0);
 	exec->assets->north->image = mlx_xpm_file_to_image(exec->mlx,
 			exec->assets->path_no, &exec->assets->img_width,
 			&exec->assets->img_height);
@@ -35,6 +58,7 @@ void	set_img(t_exec *exec)
 			exec->assets->path_we, &exec->assets->img_width,
 			&exec->assets->img_height);
 	if (!check_image(exec))
-		error("Error\nCan't access to assets\n");
+		return (error("Error\nCan't access to assets\n"), 0);
+	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:16:48 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/14 22:32:44 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:51:33 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	init_mlx(t_exec *exec)
 			"cub3D");
 	if (!exec->win)
 		return (0);
-	set_img(exec);
+	if (!set_img(exec))
+		return (0);
 	// mlx_key_hook(exec->win, key_hook, exec);
 	mlx_hook(exec->win, 2, 1L << 0, key_hook, exec);
 	mlx_hook(exec->win, 17, 0, handle_window_close, exec);
