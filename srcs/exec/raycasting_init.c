@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viny <viny@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:36:59 by viny              #+#    #+#             */
-/*   Updated: 2025/07/10 16:49:29 by viny             ###   ########.fr       */
+/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,10 @@ void	init_steps(t_exec *exec, t_ray *r)
 	}
 }
 
-void	perform_dda(t_exec *exec, t_ray *r)
+void	clear_image(t_exec *exec)
 {
-	r->hit = 0;
-	while (!r->hit)
-	{
-		if (r->side_dist_x < r->side_dist_y)
-		{
-			r->side_dist_x += r->delta_dist_x;
-			r->map_x += r->step_x;
-			r->side = 0;
-		}
-		else
-		{
-			r->side_dist_y += r->delta_dist_y;
-			r->map_y += r->step_y;
-			r->side = 1;
-		}
-		if (exec->map[r->map_y][r->map_x] == '1')
-			r->hit = 1;
-	}
+	mlx_destroy_image(exec->mlx, exec->image);
+	exec->image = mlx_new_image(exec->mlx, exec->win_width, exec->win_height);
+	exec->img_data = mlx_get_data_addr(exec->image, &exec->bpp,
+			&exec->size_line, &exec->endian);
 }

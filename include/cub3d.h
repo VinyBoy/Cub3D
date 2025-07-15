@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/15 10:51:46 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:02:02 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,20 @@
 # define ON_DESTROY 17
 # define MOVE_SPEED 0.2
 # define ROT_SPEED 0.05
+# define MINIMAP_MAX_SIZE 300
+# define MINIMAP_MIN_SIZE 150
+# define MINIMAP_SCALE 8
+# define MINIMAP_X 20
+# define MINIMAP_Y 20
 
-typedef struct s_texinfo
+typedef struct s_tex_info
 {
 	void			*img;
 	char			*img_data;
 	int				width;
 	int				height;
-}					t_texinfo;
+	int				y;
+}					t_tex_info;
 
 typedef struct s_texture_mlx
 {
@@ -145,6 +151,7 @@ typedef struct s_exec
 	int				ceiling_ex;
 	int				map_width;
 	int				map_height;
+	int				show_minimap;
 	t_player		player;
 	t_assets		*assets;
 }					t_exec;
@@ -182,24 +189,40 @@ void				move_right(t_exec *exec);
 
 /*move_2.c*/
 void				rotate(t_exec *exec, double angle);
-// void			rotate_right(t_exec *exec);
 
 /*raycasting.c*/
 int					render_frame(t_exec *exec);
-void				clear_image(t_exec *exec);
+void				draw_floor_and_ceiling(t_exec *exec);
 void				cast_ray(t_exec *exec, int x);
 void				compute_wall(t_exec *exec, t_ray *r);
-void				draw_column(t_exec *exec, int x, t_ray *r);
+void				perform_dda(t_exec *exec, t_ray *r);
 /*raycasting_init.c*/
 void				init_ray(t_exec *exec, t_ray *r, int x);
 void				init_steps(t_exec *exec, t_ray *r);
+void				clear_image(t_exec *exec);
+/*raycasting_texture_1.c*/
+void				draw_column(t_exec *exec, int x, t_ray *r);
+void				draw_texture_column(t_exec *exec, int x, t_ray *r,
+						t_tex_info *tex_info);
+int					get_tex_x(t_exec *exec, t_ray *r, t_tex_info *tex);
+/*raycasting_texture_2.c*/
+int					init_texture(t_exec *exec);
+int					set_img(t_exec *exec);
+void				*choose_texture_img(t_exec *exec, t_ray *r);
 void				perform_dda(t_exec *exec, t_ray *r);
 
 /*free.c*/
 void				free_exec_exit(t_exec *exec);
 
 /* texture.c */
-int					set_img(t_exec *exec);
+
+/* minimap.c */
+void				draw_minimap_pixel(t_exec *exec, int x, int y, int color);
+void				draw_minimap_border(t_exec *exec);
+void				draw_minimap_background(t_exec *exec);
+void				draw_player_on_minimap(t_exec *exec);
+void				draw_minimap_map(t_exec *exec);
+void				draw_minimap(t_exec *exec);
 
 /* parsing/color.c */
 int					count_commas(char *str);

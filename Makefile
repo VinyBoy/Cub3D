@@ -6,7 +6,7 @@
 #    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/14 22:19:33 by vnieto-j         ###   ########.fr        #
+#    Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,14 @@ SRCS =		srcs/cub3d.c \
 			srcs/exec/exec_1.c \
 			srcs/exec/free.c \
 			srcs/exec/hook.c \
-			srcs/exec/texture.c \
 			srcs/exec/init_mlx.c \
 			srcs/exec/move_1.c \
 			srcs/exec/move_2.c \
 			srcs/exec/raycasting.c \
+			srcs/exec/raycasting_texture.c \
+			srcs/exec/raycasting_texture_2.c \
 			srcs/exec/raycasting_init.c \
+			srcs/exec/minimap.c \
 
 GREEN =		\033[1;32m
 YELLOW =	\033[1;33m

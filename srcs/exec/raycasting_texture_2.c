@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   raycasting_texture_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:19:15 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/15 10:53:35 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,20 @@ int	set_img(t_exec *exec)
 	return (1);
 }
 
+void	*choose_texture_img(t_exec *exec, t_ray *r)
+{
+	if (r->side == 0)
+	{
+		if (r->ray_dir_x > 0)
+			return (exec->assets->west->image);
+		else
+			return (exec->assets->east->image);
+	}
+	else
+	{
+		if (r->ray_dir_y > 0)
+			return (exec->assets->north->image);
+		else
+			return (exec->assets->south->image);
+	}
+}

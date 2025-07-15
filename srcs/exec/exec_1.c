@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:37:09 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/14 21:48:26 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:36:57 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	init_exec(t_exec *exec, t_cub *cub)
 	exec->ceiling_ex = rgb_to_int(cub->assets->ceiling[0],
 			cub->assets->ceiling[1], cub->assets->ceiling[2]);
 	exec->assets = cub->assets;
+	exec->show_minimap = 0;
 	init_pos_player(exec);
 }
 

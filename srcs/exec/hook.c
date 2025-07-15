@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:17:59 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/11 19:14:22 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	key_hook(int keysym, t_exec *exec)
 		rotate(exec, -ROT_SPEED);
 	else if (keysym == XK_Right)
 		rotate(exec, ROT_SPEED);
+	else if (keysym == XK_m || keysym == XK_M)
+		exec->show_minimap = !exec->show_minimap;
 	return (1);
 }
 
