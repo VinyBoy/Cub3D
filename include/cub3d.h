@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/15 16:49:02 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:48:31 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@
 
 typedef struct s_tex_info
 {
-	void			*img;
-	char			*img_data;
-	int				width;
-	int				height;
+	int				tex_x;
 	int				y;
+	int				end;
+	double			step;
+	double			tex_pos;
+	int				line_height;
 }					t_tex_info;
 
 typedef struct s_texture_mlx
@@ -202,9 +203,16 @@ void				init_steps(t_exec *exec, t_ray *r);
 void				clear_image(t_exec *exec);
 /*raycasting_texture_1.c*/
 void				draw_column(t_exec *exec, int x, t_ray *r);
-void				draw_texture_column(t_exec *exec, int x, t_ray *r,
-						t_tex_info *tex_info);
-int					get_tex_x(t_exec *exec, t_ray *r, t_tex_info *tex);
+void				draw_textured_wall(t_exec *exec, int x,
+						t_tex_info *tex_info, t_ray *r);
+void				draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
+						t_tex_info *tex, t_ray *r);
+int					get_tex_x(t_exec *exec, t_texture_mlx *texture, t_ray *r);
+int					get_wall_x(t_exec *exec, t_ray *r);
+t_texture_mlx		*get_wall_texture(t_exec *exec, t_ray *r);
+// void				draw_texture_column(t_exec *exec, int x, t_ray *r,
+// 						t_tex_info *tex_info);
+// int					get_tex_x(t_exec *exec, t_ray *r, t_tex_info *tex);
 /*raycasting_texture_2.c*/
 int					init_texture(t_exec *exec);
 int					set_img(t_exec *exec);

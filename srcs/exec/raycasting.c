@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:37:24 by viny              #+#    #+#             */
-/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:47:50 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	cast_ray(t_exec *exec, int x)
 	compute_wall(exec, &r);
 	draw_column(exec, x, &r);
 }
-
 
 void	compute_wall(t_exec *exec, t_ray *r)
 {

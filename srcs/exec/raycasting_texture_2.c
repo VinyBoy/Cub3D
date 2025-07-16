@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:19:15 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:45:16 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,31 @@ int	init_texture(t_exec *exec)
 	return (1);
 }
 
+int	init_mlx_data_addr(t_exec *exec)
+{
+	exec->assets->north->img_data = mlx_get_data_addr(exec->assets->north->image,
+			&exec->assets->north->bpp, &exec->assets->north->size_line,
+			&exec->assets->north->endian);
+	exec->assets->south->img_data = mlx_get_data_addr(exec->assets->south->image,
+			&exec->assets->south->bpp, &exec->assets->south->size_line,
+			&exec->assets->south->endian);
+	exec->assets->east->img_data = mlx_get_data_addr(exec->assets->east->image,
+			&exec->assets->east->bpp, &exec->assets->east->size_line,
+			&exec->assets->east->endian);
+	exec->assets->west->img_data = mlx_get_data_addr(exec->assets->west->image,
+			&exec->assets->west->bpp, &exec->assets->west->size_line,
+			&exec->assets->west->endian);
+	exec->assets->north->win_width = exec->assets->img_width;
+	exec->assets->north->win_height = exec->assets->img_height;
+	exec->assets->south->win_width = exec->assets->img_width;
+	exec->assets->south->win_height = exec->assets->img_height;
+	exec->assets->east->win_width = exec->assets->img_width;
+	exec->assets->east->win_height = exec->assets->img_height;
+	exec->assets->west->win_width = exec->assets->img_width;
+	exec->assets->west->win_height = exec->assets->img_height;
+	return (1);
+}
+
 int	set_img(t_exec *exec)
 {
 	if (!init_texture(exec))
@@ -59,6 +84,8 @@ int	set_img(t_exec *exec)
 			&exec->assets->img_height);
 	if (!check_image(exec))
 		return (error("Error\nCan't access to assets\n"), 0);
+	if (!init_mlx_data_addr(exec))
+		return (error("Error\nBad get_data_addr_mlx_to_texture"), 0);
 	return (1);
 }
 
