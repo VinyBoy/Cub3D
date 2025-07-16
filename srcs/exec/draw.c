@@ -6,48 +6,11 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:16:18 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/11 19:21:45 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 23:39:39 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-void	draw_direction(t_exec *exec, int x, int y, double dx, double dy)
-{
-	int	i;
-	int	lenght;
-	int	px;
-	int	py;
-
-	i = 0;
-	// counte la ligne on recupera avec le parsing
-	lenght = 20;
-	while (i < lenght)
-	{
-		px = x + dx * i;
-		py = y + dy * i;
-		put_pixel(exec, px, py, 0x00FFFFFF);
-		i++;
-	}
-}
-
-void	draw_something(t_exec *exec, int x_start, int y_start, int size)
-{
-	int	x;
-	int	y;
-
-	y = y_start;
-	while (y < y_start + size)
-	{
-		x = x_start;
-		while (x < x_start + size)
-		{
-			put_pixel(exec, x, y, 0x00FF0000);
-			x++;
-		}
-		y++;
-	}
-}
 
 void	put_pixel(t_exec *exec, int x, int y, int color)
 {
@@ -57,12 +20,60 @@ void	put_pixel(t_exec *exec, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	create_image(t_exec *exec)
+int	rgb_to_int(int r, int g, int b)
 {
-	int	center_x;
-	int	center_y;
+	return ((r << 16) | (g << 8) | b);
+}
 
-	center_x = exec->win_width / 2 - 200;
-	center_y = exec->win_height / 2 - 200;
-	draw_something(exec, center_x, center_y, 400);
+void	draw_column(t_exec *exec, int x, t_ray *r)
+{
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	t_tex_info	tex_info;
+
+	line_height = (int)(exec->win_height / r->perp_wall_dist);
+	draw_start = -line_height / 2 + exec->win_height / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	draw_end = line_height / 2 + exec->win_height / 2;
+	if (draw_end >= exec->win_height)
+		draw_end = exec->win_height - 1;
+	tex_info.line_height = line_height;
+	tex_info.y = draw_start;
+	tex_info.end = draw_end;
+	draw_textured_wall(exec, x, &tex_info, r);
+}
+
+void	draw_textured_wall(t_exec *exec, int x, t_tex_info *tex_info, t_ray *r)
+{
+	t_texture_mlx	*texture;
+
+	texture = get_wall_texture(exec, r);
+	if (!texture || !texture->img_data)
+		return ;
+	tex_info->tex_x = get_tex_x(exec, texture, r);
+	tex_info->step = 1.0 * texture->win_height / tex_info->line_height;
+	tex_info->tex_pos = (tex_info->y - exec->win_height / 2
+			+ tex_info->line_height / 2) * tex_info->step;
+	draw_wall_line(exec, texture, x, tex_info, r);
+}
+
+void	draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
+		t_tex_info *tex, t_ray *r)
+{
+	int	tex_y;
+	int	color;
+
+	while (tex->y < tex->end)
+	{
+		tex_y = (int)tex->tex_pos & (texture->win_height - 1);
+		tex->tex_pos += tex->step;
+		color = *(int *)(texture->img_data + (tex_y * texture->size_line
+					+ tex->tex_x * (texture->bpp / 8)));
+		if (r->side == 1)
+			color = (color >> 1) & 8355711;
+		put_pixel(exec, x, tex->y, color);
+		tex->y++;
+	}
 }

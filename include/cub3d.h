@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/16 17:27:59 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 23:41:11 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <unistd.h>
 
 # define ON_DESTROY 17
-# define MOVE_SPEED 0.2
+# define MOVE_SPEED 0.1
 # define ROT_SPEED 0.05
 # define MINIMAP_MAX_SIZE 300
 # define MINIMAP_MIN_SIZE 150
@@ -157,73 +157,50 @@ typedef struct s_exec
 	t_assets		*assets;
 }					t_exec;
 
-/*exec_1.c*/
-void				init_dir_plane_ew(t_exec *exec, int x, int y);
-void				init_dir_plane(t_exec *exec, int x, int y);
-void				init_pos_player(t_exec *exec);
-void				ft_exec(int argc, char **argv, t_cub *cub);
-void				init_exec(t_exec *exec, t_cub *cub);
-
-/*init_mlx.c*/
-int					init_mlx(t_exec *exec);
-int					handle_window_close(t_exec *exec);
-
 /*draw.c*/
-void				draw_floor_and_ceiling(t_exec *exec);
-void				create_image(t_exec *exec);
-void				draw_something(t_exec *exec, int x_start, int y_start,
-						int size);
 void				put_pixel(t_exec *exec, int x, int y, int color);
-int					render_frame(t_exec *exec);
-void				draw_direction(t_exec *exec, int x, int y, double dx,
-						double dy);
-
-/*hook.c*/
-int					key_hook(int keysym, t_exec *exec);
-int					mouse_hook(int x, int y, t_exec *exec);
-void				rotate_camera(t_exec *exec, double rot);
-
-/*move_1.c*/
-void				move_forward(t_exec *exec);
-void				move_backward(t_exec *exec);
-void				move_left(t_exec *exec);
-void				move_right(t_exec *exec);
-
-/*move_2.c*/
-void				rotate(t_exec *exec, double angle);
-
-/*raycasting.c*/
-int					render_frame(t_exec *exec);
-void				draw_floor_and_ceiling(t_exec *exec);
-void				cast_ray(t_exec *exec, int x);
-void				compute_wall(t_exec *exec, t_ray *r);
-void				perform_dda(t_exec *exec, t_ray *r);
-/*raycasting_init.c*/
-void				init_ray(t_exec *exec, t_ray *r, int x);
-void				init_steps(t_exec *exec, t_ray *r);
-void				clear_image(t_exec *exec);
-/*raycasting_texture_1.c*/
+int					rgb_to_int(int r, int g, int b);
 void				draw_column(t_exec *exec, int x, t_ray *r);
 void				draw_textured_wall(t_exec *exec, int x,
 						t_tex_info *tex_info, t_ray *r);
 void				draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
 						t_tex_info *tex, t_ray *r);
-int					get_tex_x(t_exec *exec, t_texture_mlx *texture, t_ray *r);
-int					get_wall_x(t_exec *exec, t_ray *r);
-t_texture_mlx		*get_wall_texture(t_exec *exec, t_ray *r);
-// void				draw_texture_column(t_exec *exec, int x, t_ray *r,
-// 						t_tex_info *tex_info);
-// int					get_tex_x(t_exec *exec, t_ray *r, t_tex_info *tex);
-/*raycasting_texture_2.c*/
-int					init_texture(t_exec *exec);
-int					set_img(t_exec *exec);
-void				*choose_texture_img(t_exec *exec, t_ray *r);
-void				perform_dda(t_exec *exec, t_ray *r);
+
+// void				draw_floor_and_ceiling(t_exec *exec);
+// void				create_image(t_exec *exec);
+// void				draw_something(t_exec *exec, int x_start, int y_start,
+// 						int size);
+// void				put_pixel(t_exec *exec, int x, int y, int color);
+// int					render_frame(t_exec *exec);
+// void				draw_direction(t_exec *exec, int x, int y, double dx,
+// 						double dy);
+
+/*exec_1.c*/
+void				ft_exec(int argc, char **argv, t_cub *cub);
+void				init_exec(t_exec *exec, t_cub *cub);
+void				init_pos_player(t_exec *exec);
+void				init_dir_plane(t_exec *exec, int x, int y);
+void				init_dir_plane_ew(t_exec *exec, int x, int y);
 
 /*free.c*/
 void				free_exec_exit(t_exec *exec);
+void				free_texture(t_exec *exec, t_texture_mlx *texture);
+void				free_all_textures(t_exec *exec);
+void				free_texture_init(t_exec *exec);
 
-/* minimap.c */
+/*hook.c*/
+int					key_hook(int keysym, t_exec *exec);
+int					mouse_hook(int x, int y, t_exec *exec);
+void				rotate_camera(t_exec *exec, double rot);
+int					handle_window_close(t_exec *exec);
+
+/*init_mlx.c*/
+int					init_mlx(t_exec *exec);
+int					init_new_window(t_exec *exec);
+int					init_set_image(t_exec *exec);
+int					init_new_image(t_exec *exec);
+
+/* minimap_1.c */
 void				draw_minimap_border(t_exec *exec);
 void				draw_minimap_background(t_exec *exec);
 void				draw_player_on_minimap(t_exec *exec);
@@ -233,6 +210,37 @@ void				draw_minimap(t_exec *exec);
 /* minimap_2.c */
 int					get_minimap_size(t_exec *exec);
 void				draw_minimap_pixel(t_exec *exec, int x, int y, int color);
+
+/*move.c*/
+void				move_forward(t_exec *exec);
+void				move_backward(t_exec *exec);
+void				move_left(t_exec *exec);
+void				move_right(t_exec *exec);
+void				rotate(t_exec *exec, double angle);
+
+/*raycasting_1.c*/
+int					render_frame(t_exec *exec);
+void				draw_floor_and_ceiling(t_exec *exec);
+void				cast_ray(t_exec *exec, int x);
+void				compute_wall(t_exec *exec, t_ray *r);
+void				perform_dda(t_exec *exec, t_ray *r);
+
+/*raycasting_init.c*/
+void				init_ray(t_exec *exec, t_ray *r, int x);
+void				init_steps(t_exec *exec, t_ray *r);
+void				clear_image(t_exec *exec);
+
+/*raycasting_texture_1.c*/
+t_texture_mlx		*get_wall_texture(t_exec *exec, t_ray *r);
+int					get_tex_x(t_exec *exec, t_texture_mlx *texture, t_ray *r);
+int					get_wall_x(t_exec *exec, t_ray *r);
+
+/*raycasting_texture_2.c*/
+int					init_texture(t_exec *exec);
+int					init_mlx_data_addr(t_exec *exec);
+int					init_convert_file_to_xpm(t_exec *exec);
+int					set_img(t_exec *exec);
+void				*choose_texture_img(t_exec *exec, t_ray *r);
 
 /* parsing/color.c */
 int					count_commas(char *str);

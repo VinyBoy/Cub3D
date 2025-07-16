@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+         #
+#    By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/03 19:46:19 by oztozdem          #+#    #+#              #
-#    Updated: 2025/07/15 16:49:16 by oztozdem         ###   ########.fr        #
+#    Updated: 2025/07/16 23:34:40 by vnieto-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,13 +36,12 @@ SRCS =		srcs/cub3d.c \
 			srcs/exec/free.c \
 			srcs/exec/hook.c \
 			srcs/exec/init_mlx.c \
-			srcs/exec/move_1.c \
-			srcs/exec/move_2.c \
-			srcs/exec/raycasting.c \
-			srcs/exec/raycasting_texture.c \
+			srcs/exec/move.c \
+			srcs/exec/raycasting_1.c \
+			srcs/exec/raycasting_texture_1.c \
 			srcs/exec/raycasting_texture_2.c \
 			srcs/exec/raycasting_init.c \
-			srcs/exec/minimap.c \
+			srcs/exec/minimap_1.c \
 			srcs/exec/minimap_2.c \
 
 GREEN =		\033[1;32m

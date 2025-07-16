@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:17:59 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/16 17:53:42 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 23:39:18 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,18 @@ void	rotate_camera(t_exec *exec, double rot)
 		* cos(rot);
 }
 
-
 int	mouse_hook(int x, int y, t_exec *exec)
 {
 	int				center_x;
-	static	int		last_x = -1;
+	static int		last_x = -1;
 	int				diff_x;
 	double			rot_speed;
 
 	(void)y;
 	center_x = exec->win_width / 2;
 	rot_speed = 0.002;
-
 	diff_x = x - last_x;
 	last_x = x;
-
 	if (diff_x != 0)
 		rotate_camera(exec, diff_x * rot_speed);
 	if (x < exec->win_width * 0.2 || x > exec->win_width * 0.8)
@@ -73,4 +70,10 @@ int	key_hook(int keysym, t_exec *exec)
 	else if (keysym == XK_m || keysym == XK_M)
 		exec->show_minimap = !exec->show_minimap;
 	return (1);
+}
+
+int	handle_window_close(t_exec *exec)
+{
+	free_exec_exit(exec);
+	return (0);
 }
