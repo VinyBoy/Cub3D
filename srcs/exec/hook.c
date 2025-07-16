@@ -6,17 +6,52 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:17:59 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:53:42 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	mouse_hook(int mouse_code, t_exec *exec)
+void	rotate_camera(t_exec *exec, double rot)
 {
-	if (mouse_code == ON_DESTROY)
-		return (free_exec_exit(exec), 0);
-	return (1);
+	double	old_dir_x;
+	double	old_plane_x;
+
+	old_dir_x = exec->player.dir_x;
+	exec->player.dir_x = exec->player.dir_x * cos(rot) - exec->player.dir_y
+		* sin(rot);
+	exec->player.dir_y = old_dir_x * sin(rot) + exec->player.dir_y
+		* cos(rot);
+	old_plane_x = exec->player.plane_x;
+	exec->player.plane_x = exec->player.plane_x * cos(rot)
+		- exec->player.plane_y * sin(rot);
+	exec->player.plane_y = old_plane_x * sin(rot) + exec->player.plane_y
+		* cos(rot);
+}
+
+
+int	mouse_hook(int x, int y, t_exec *exec)
+{
+	int				center_x;
+	static	int		last_x = -1;
+	int				diff_x;
+	double			rot_speed;
+
+	(void)y;
+	center_x = exec->win_width / 2;
+	rot_speed = 0.002;
+
+	diff_x = x - last_x;
+	last_x = x;
+
+	if (diff_x != 0)
+		rotate_camera(exec, diff_x * rot_speed);
+	if (x < exec->win_width * 0.2 || x > exec->win_width * 0.8)
+	{
+		mlx_mouse_move(exec->mlx, exec->win, center_x, exec->win_height / 2);
+		last_x = center_x;
+	}
+	return (0);
 }
 
 int	key_hook(int keysym, t_exec *exec)
@@ -39,4 +74,3 @@ int	key_hook(int keysym, t_exec *exec)
 		exec->show_minimap = !exec->show_minimap;
 	return (1);
 }
-

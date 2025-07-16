@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/16 15:48:31 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:27:59 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,8 @@ void				draw_direction(t_exec *exec, int x, int y, double dx,
 
 /*hook.c*/
 int					key_hook(int keysym, t_exec *exec);
-int					mouse_hook(int mouse_code, t_exec *exec);
+int					mouse_hook(int x, int y, t_exec *exec);
+void				rotate_camera(t_exec *exec, double rot);
 
 /*move_1.c*/
 void				move_forward(t_exec *exec);

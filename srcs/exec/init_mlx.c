@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:16:48 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/15 14:32:40 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:54:16 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	init_mlx(t_exec *exec)
 		return (0);
 	if (!set_img(exec))
 		return (0);
-	// mlx_key_hook(exec->win, key_hook, exec);
+	mlx_mouse_hide(exec->mlx, exec->win);
+	mlx_hook(exec->win, 6, 1L << 6, mouse_hook, exec);
 	mlx_hook(exec->win, 2, 1L << 0, key_hook, exec);
 	mlx_hook(exec->win, 17, 0, handle_window_close, exec);
 	exec->image = mlx_new_image(exec->mlx, exec->win_width, exec->win_height);
