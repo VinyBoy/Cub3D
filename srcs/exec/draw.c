@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:16:18 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/16 23:39:39 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:03:58 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	rgb_to_int(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-void	draw_column(t_exec *exec, int x, t_ray *r)
+void	draw_column(t_exec *exec, t_ray *r)
 {
 	int			line_height;
 	int			draw_start;
@@ -42,10 +42,10 @@ void	draw_column(t_exec *exec, int x, t_ray *r)
 	tex_info.line_height = line_height;
 	tex_info.y = draw_start;
 	tex_info.end = draw_end;
-	draw_textured_wall(exec, x, &tex_info, r);
+	draw_textured_wall(exec, &tex_info, r);
 }
 
-void	draw_textured_wall(t_exec *exec, int x, t_tex_info *tex_info, t_ray *r)
+void	draw_textured_wall(t_exec *exec, t_tex_info *tex_info, t_ray *r)
 {
 	t_texture_mlx	*texture;
 
@@ -56,11 +56,11 @@ void	draw_textured_wall(t_exec *exec, int x, t_tex_info *tex_info, t_ray *r)
 	tex_info->step = 1.0 * texture->win_height / tex_info->line_height;
 	tex_info->tex_pos = (tex_info->y - exec->win_height / 2
 			+ tex_info->line_height / 2) * tex_info->step;
-	draw_wall_line(exec, texture, x, tex_info, r);
+	draw_wall_line(exec, texture, tex_info, r);
 }
 
-void	draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
-		t_tex_info *tex, t_ray *r)
+void	draw_wall_line(t_exec *exec, t_texture_mlx *texture, t_tex_info *tex,
+		t_ray *r)
 {
 	int	tex_y;
 	int	color;
@@ -73,7 +73,7 @@ void	draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
 					+ tex->tex_x * (texture->bpp / 8)));
 		if (r->side == 1)
 			color = (color >> 1) & 8355711;
-		put_pixel(exec, x, tex->y, color);
+		put_pixel(exec, exec->the_x, tex->y, color);
 		tex->y++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/17 11:06:14 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:04:02 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_exec
 	int				map_width;
 	int				map_height;
 	int				show_minimap;
+	int				the_x;
 	t_player		player;
 	t_assets		*assets;
 }					t_exec;
@@ -155,10 +156,10 @@ typedef struct s_exec
 /*draw.c*/
 void				put_pixel(t_exec *exec, int x, int y, int color);
 int					rgb_to_int(int r, int g, int b);
-void				draw_column(t_exec *exec, int x, t_ray *r);
-void				draw_textured_wall(t_exec *exec, int x,
-						t_tex_info *tex_info, t_ray *r);
-void				draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
+void				draw_column(t_exec *exec, t_ray *r);
+void				draw_textured_wall(t_exec *exec, t_tex_info *tex_info,
+						t_ray *r);
+void				draw_wall_line(t_exec *exec, t_texture_mlx *texture,
 						t_tex_info *tex, t_ray *r);
 
 // void				draw_floor_and_ceiling(t_exec *exec);
@@ -216,12 +217,12 @@ void				rotate(t_exec *exec, double angle);
 /*raycasting_1.c*/
 int					render_frame(t_exec *exec);
 void				draw_floor_and_ceiling(t_exec *exec);
-void				cast_ray(t_exec *exec, int x);
+void				cast_ray(t_exec *exec);
 void				compute_wall(t_exec *exec, t_ray *r);
 void				perform_dda(t_exec *exec, t_ray *r);
 
 /*raycasting_init.c*/
-void				init_ray(t_exec *exec, t_ray *r, int x);
+void				init_ray(t_exec *exec, t_ray *r);
 void				init_steps(t_exec *exec, t_ray *r);
 void				clear_image(t_exec *exec);
 

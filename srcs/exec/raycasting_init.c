@@ -6,15 +6,15 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:36:59 by viny              #+#    #+#             */
-/*   Updated: 2025/07/15 15:23:47 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:01:31 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	init_ray(t_exec *exec, t_ray *r, int x)
+void	init_ray(t_exec *exec, t_ray *r)
 {
-	r->camera_x = 2 * x / (double)exec->win_width - 1;
+	r->camera_x = 2 * exec->the_x / (double)exec->win_width - 1;
 	r->ray_dir_x = exec->player.dir_x
 		+ exec->player.plane_x * r->camera_x;
 	r->ray_dir_y = exec->player.dir_y

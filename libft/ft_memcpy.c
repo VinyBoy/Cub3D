@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:58:53 by vnieto-j          #+#    #+#             */
-/*   Updated: 2023/01/07 18:27:50 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:13:56 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memcpy(void *dest, const void *source, size_t size)
 	char		*tabdest;
 	char		*tabsource;
 
-	if (dest == NULL && source == NULL)
+	if (!dest || !source)
 		return (NULL);
 	i = 0;
 	tabdest = (char *) dest;

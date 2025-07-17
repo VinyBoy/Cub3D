@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_close.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 10:47:28 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/11 12:37:33 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:11:59 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	check_borders(char **map)
 	int	map_height;
 
 	i = 0;
+	if (!map || !map[0])
+		return (error("Error\nEmpty map\n"), 0);
 	while (map[i])
 		i++;
 	map_height = i;

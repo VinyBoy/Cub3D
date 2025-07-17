@@ -6,7 +6,7 @@
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:44:27 by vnieto-j          #+#    #+#             */
-/*   Updated: 2023/01/07 19:12:00 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:16:31 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	**ft_split(const char *s, char c)
 		size = ft_size_word(s, c, i);
 		dest[j] = ft_substr(s, i, size);
 		if (dest[j] == NULL)
-			ft_free(dest, j);
+			return (ft_free(dest, j), NULL);
 		i = i + size;
 	}
 	dest[j] = NULL;

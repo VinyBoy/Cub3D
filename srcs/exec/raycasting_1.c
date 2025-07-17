@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   raycasting_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:37:24 by viny              #+#    #+#             */
-/*   Updated: 2025/07/16 15:47:50 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:02:44 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 int	render_frame(t_exec *exec)
 {
-	int	x;
-
 	clear_image(exec);
 	draw_floor_and_ceiling(exec);
-	x = 0;
-	while (x < exec->win_width)
+	exec->the_x = 0;
+	while (exec->the_x < exec->win_width)
 	{
-		cast_ray(exec, x);
-		x++;
+		cast_ray(exec);
+		exec->the_x++;
 	}
 	draw_minimap(exec);
 	mlx_put_image_to_window(exec->mlx, exec->win, exec->image, 0, 0);
@@ -51,14 +49,14 @@ void	draw_floor_and_ceiling(t_exec *exec)
 	}
 }
 
-void	cast_ray(t_exec *exec, int x)
+void	cast_ray(t_exec *exec)
 {
 	t_ray	r;
 
-	init_ray(exec, &r, x);
+	init_ray(exec, &r);
 	perform_dda(exec, &r);
 	compute_wall(exec, &r);
-	draw_column(exec, x, &r);
+	draw_column(exec, &r);
 }
 
 void	compute_wall(t_exec *exec, t_ray *r)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_texture_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:19:15 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/17 13:52:23 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:56:07 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ int	init_texture(t_exec *exec)
 
 int	init_mlx_data_addr(t_exec *exec)
 {
-	exec->assets->north->img_data = mlx_get_data_addr(exec->assets->north->image,
+	exec->assets->north->img_data = mlx_get_data_addr
+		(exec->assets->north->image,
 			&exec->assets->north->bpp, &exec->assets->north->size_line,
 			&exec->assets->north->endian);
-	exec->assets->south->img_data = mlx_get_data_addr(exec->assets->south->image,
+	exec->assets->south->img_data = mlx_get_data_addr
+		(exec->assets->south->image,
 			&exec->assets->south->bpp, &exec->assets->south->size_line,
 			&exec->assets->south->endian);
 	exec->assets->east->img_data = mlx_get_data_addr(exec->assets->east->image,
