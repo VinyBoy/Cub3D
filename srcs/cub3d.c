@@ -3,38 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:12:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 21:05:46 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:22:17 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-t_cub	*init_cub(char **argv)
-{
-	t_cub	*cub;
-
-	cub = malloc(sizeof(t_cub));
-	if (!cub)
-		return (error("Error\nMalloc error on t_cub struct\n"), NULL);
-	ft_memset(cub, 0, sizeof(t_cub));
-	cub->assets = parse_map(argv);
-	if (!cub->assets)
-		return (free_all(cub), NULL);
-	return (cub);
-}
-
 int	main(int argc, char **argv)
 {
-	t_cub	*cub;
+	t_exec		*exec;
+	t_assets	*assets;
 
 	if (argc != 2)
 		return (error("Error\nUsage: ./cub3D <map.cub>\n"), 1);
-	cub = init_cub(argv);
-	if (!cub)
-		return (free_all(cub), 1);
-	ft_exec(argc, argv, cub);
-	return (free_all(cub), 0);
+	assets = parse_map(argv);
+	if (!assets)
+		return (1);
+	exec = ft_exec(argc, argv, assets);
+	if (!exec)
+		return (free_assets(assets), 1);
+	free_exit(exec, 0);
+	return (0);
 }

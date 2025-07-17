@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 17:29:03 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/16 23:41:11 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:06:14 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,6 @@ typedef struct s_assets
 	t_texture_mlx	*west;
 }					t_assets;
 
-typedef struct s_cub
-{
-	t_assets		*assets;
-}					t_cub;
-
 typedef struct s_player
 {
 	double			x;
@@ -124,7 +119,7 @@ typedef struct s_ray
 	// Distance réelle entre joueur et mur (corrigée pour perspective)
 
 	int step_x; // +1 ou
-				// -1 : direction du pas en X (vers la droite ou la gauche)
+	// -1 : direction du pas en X (vers la droite ou la gauche)
 	int step_y; // +1 ou -1 : direction du pas en Y (vers le haut ou le bas)
 
 	int hit;  // 0 ou 1 : le rayon a-t-il touché un mur ?
@@ -176,8 +171,8 @@ void				draw_wall_line(t_exec *exec, t_texture_mlx *texture, int x,
 // 						double dy);
 
 /*exec_1.c*/
-void				ft_exec(int argc, char **argv, t_cub *cub);
-void				init_exec(t_exec *exec, t_cub *cub);
+t_exec				*ft_exec(int argc, char **argv, t_assets *assets);
+void				init_exec(t_exec *exec, t_assets *assets);
 void				init_pos_player(t_exec *exec);
 void				init_dir_plane(t_exec *exec, int x, int y);
 void				init_dir_plane_ew(t_exec *exec, int x, int y);
@@ -320,6 +315,6 @@ void				error(char *msg);
 int					c_strchr(char *str, char *s);
 
 /* ./free.c */
-void				free_all(t_cub *cub);
+void				free_exit(t_exec *exec, int exit_code);
 
 #endif

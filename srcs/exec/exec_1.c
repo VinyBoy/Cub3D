@@ -3,41 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   exec_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:37:09 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/16 23:25:03 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:22:17 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	ft_exec(int argc, char **argv, t_cub *cub)
+t_exec	*ft_exec(int argc, char **argv, t_assets *assets)
 {
-	t_exec	exec;
+	t_exec	*exec;
 
 	(void)argc;
 	(void)argv;
-	init_exec(&exec, cub);
-	if (!init_mlx(&exec))
+	exec = malloc(sizeof(t_exec));
+	if (!exec)
+		return (error("Error\nMalloc error on t_exec struct\n"), NULL);
+	ft_memset(exec, 0, sizeof(t_exec));
+	init_exec(exec, assets);
+	if (!init_mlx(exec))
 	{
-		free_all_textures(&exec);
-		return ;
+		free_all_textures(exec);
+		free(exec);
+		return (NULL);
 	}
+	return (exec);
 }
 
-void	init_exec(t_exec *exec, t_cub *cub)
+void	init_exec(t_exec *exec, t_assets *assets)
 {
-	exec->map = cub->assets->map;
+	exec->map = assets->map;
 	exec->map_width = 30;
 	exec->map_height = 14;
 	exec->win_height = 800;
 	exec->win_width = 1400;
-	exec->floor_ex = rgb_to_int(cub->assets->floor[0], cub->assets->floor[1],
-			cub->assets->floor[2]);
-	exec->ceiling_ex = rgb_to_int(cub->assets->ceiling[0],
-			cub->assets->ceiling[1], cub->assets->ceiling[2]);
-	exec->assets = cub->assets;
+	exec->floor_ex = rgb_to_int(assets->floor[0], assets->floor[1],
+			assets->floor[2]);
+	exec->ceiling_ex = rgb_to_int(assets->ceiling[0], assets->ceiling[1],
+			assets->ceiling[2]);
+	exec->assets = assets;
 	exec->show_minimap = 0;
 	init_pos_player(exec);
 }

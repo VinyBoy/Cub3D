@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:17:59 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/16 23:39:18 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 11:27:04 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	mouse_hook(int x, int y, t_exec *exec)
 int	key_hook(int keysym, t_exec *exec)
 {
 	if (keysym == XK_Escape)
-		return (free_exec_exit(exec), 0);
+		free_exit(exec, 0);
 	if (keysym == XK_w || keysym == XK_W)
 		move_forward(exec);
 	else if (keysym == XK_s || keysym == XK_S)
@@ -74,6 +74,6 @@ int	key_hook(int keysym, t_exec *exec)
 
 int	handle_window_close(t_exec *exec)
 {
-	free_exec_exit(exec);
+	free_exit(exec, 0);
 	return (0);
 }
