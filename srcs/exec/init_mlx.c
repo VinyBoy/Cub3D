@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:16:48 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/17 10:44:58 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:24:07 by vnieto-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	init_mlx(t_exec *exec)
 		return (0);
 	exec->img_data = mlx_get_data_addr(exec->image, &exec->bpp,
 			&exec->size_line, &exec->endian);
-	mlx_mouse_hide(exec->mlx, exec->win);
 	mlx_hook(exec->win, 6, 1L << 6, mouse_hook, exec);
 	mlx_hook(exec->win, 2, 1L << 0, key_hook, exec);
 	mlx_hook(exec->win, 17, 0, handle_window_close, exec);
