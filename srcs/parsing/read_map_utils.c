@@ -6,7 +6,7 @@
 /*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 17:52:59 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 13:13:54 by oztozdem         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:35:18 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,25 @@
 int	check_empty_lines_in_map(t_assets *assets)
 {
 	char	*next_line;
-	int		found_map_content;
 
-	found_map_content = 0;
 	next_line = get_next_line(assets->fd);
 	while (next_line)
 	{
 		if (next_line[0] != '\n' && next_line[0] != '\0')
 		{
 			if (is_map(next_line))
-			{
-				found_map_content = 1;
-				free(next_line);
-				break ;
-			}
+				return (free(next_line),
+					error("Error\nEmpty line in map\n"), 0);
 			else if (is_texture(next_line) || is_color(next_line))
 				return (free(next_line),
 					error("Error\nTexture/Color found after map start\n"), 0);
+			else
+				return (free(next_line),
+					error("Error\nInvalid content after map\n"), 0);
 		}
 		free(next_line);
 		next_line = get_next_line(assets->fd);
 	}
-	if (found_map_content)
-		return (error("Error\nEmpty line in map\n"), 0);
 	return (1);
 }
 

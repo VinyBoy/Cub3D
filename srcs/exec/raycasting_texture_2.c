@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_texture_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 22:19:15 by vnieto-j          #+#    #+#             */
-/*   Updated: 2025/07/16 23:42:39 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:52:23 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ int	init_texture(t_exec *exec)
 
 int	init_mlx_data_addr(t_exec *exec)
 {
-	exec->assets->north->img_data = mlx_get_data_addr
-		(exec->assets->north->image,
+	exec->assets->north->img_data = mlx_get_data_addr(exec->assets->north->image,
 			&exec->assets->north->bpp, &exec->assets->north->size_line,
 			&exec->assets->north->endian);
-	exec->assets->south->img_data = mlx_get_data_addr
-		(exec->assets->south->image,
+	exec->assets->south->img_data = mlx_get_data_addr(exec->assets->south->image,
 			&exec->assets->south->bpp, &exec->assets->south->size_line,
 			&exec->assets->south->endian);
 	exec->assets->east->img_data = mlx_get_data_addr(exec->assets->east->image,
@@ -66,22 +64,26 @@ int	init_convert_file_to_xpm(t_exec *exec)
 			exec->assets->path_no, &exec->assets->img_width,
 			&exec->assets->img_height);
 	if (!exec->assets->north->image)
-		return (free_all_textures(exec), error("Error/North\n"), 0);
+		return (free_all_textures(exec),
+			error("Error\nCan't load north texture\n"), 0);
 	exec->assets->south->image = mlx_xpm_file_to_image(exec->mlx,
 			exec->assets->path_so, &exec->assets->img_width,
 			&exec->assets->img_height);
 	if (!exec->assets->south->image)
-		return (free_all_textures(exec), error("Error/South\n"), 0);
+		return (free_all_textures(exec),
+			error("Error\nCan't load south texture\n"), 0);
 	exec->assets->east->image = mlx_xpm_file_to_image(exec->mlx,
 			exec->assets->path_ea, &exec->assets->img_width,
 			&exec->assets->img_height);
 	if (!exec->assets->east->image)
-		return (free_all_textures(exec), error("Error/East\n"), 0);
+		return (free_all_textures(exec),
+			error("Error\nCan't load east texture\n"), 0);
 	exec->assets->west->image = mlx_xpm_file_to_image(exec->mlx,
 			exec->assets->path_we, &exec->assets->img_width,
 			&exec->assets->img_height);
 	if (!exec->assets->west->image)
-		return (free_all_textures(exec), error("Error/West\n"), 0);
+		return (free_all_textures(exec),
+			error("Error\nCan't load west texture\n"), 0);
 	return (1);
 }
 
@@ -90,7 +92,7 @@ int	set_img(t_exec *exec)
 	if (!init_texture(exec))
 		return (error("Error\nMalloc error texture\n"), 0);
 	if (!init_convert_file_to_xpm(exec))
-		return (error("Error\nCan't loadtexture\n"), 0);
+		return (0);
 	if (!init_mlx_data_addr(exec))
 		return (free_all_textures(exec),
 			error("Error\nBad get_data_addr_mlx_to_texture"), 0);

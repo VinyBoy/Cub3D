@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vnieto-j <vnieto-j@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oztozdem <oztozdem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:28:08 by oztozdem          #+#    #+#             */
-/*   Updated: 2025/07/14 21:46:13 by vnieto-j         ###   ########.fr       */
+/*   Updated: 2025/07/17 13:36:23 by oztozdem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	parsing(t_assets *assets)
 		return (free_assets(assets), error("Error\nNo map found\n"), 0);
 	if (!check_map(assets->map))
 		return (free_assets(assets),
-			error("Error\nUnvalid caracter detected\n"), 0);
+			error("Error\nInvalid character detected\n"), 0);
 	if (!check_borders(assets->map))
 		return (free_assets(assets), 0);
 	filled_map = fill_map(assets->map);
@@ -124,6 +124,5 @@ t_assets	*parse_map(char **argv)
 	assets->map_width = get_map_width(assets->map[0]);
 	if (!set_path(assets))
 		return (0);
-	print_assets(assets);
 	return (assets);
 }
